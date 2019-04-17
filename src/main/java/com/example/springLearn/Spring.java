@@ -11,7 +11,6 @@ import org.springframework.beans.factory.support.RootBeanDefinition;
 public class Spring {
     public static void main(String[] args) {
         DefaultListableBeanFactory beanDefinitionRegistry = new DefaultListableBeanFactory();
-
         BeanFactory container = bindIocCode(beanDefinitionRegistry);
 
         A aName = (A) container.getBean("aName");
