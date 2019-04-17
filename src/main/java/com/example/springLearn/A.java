@@ -1,0 +1,18 @@
+package com.example.springLearn;
+
+/**
+ * @author liuji
+ * @create 2019-04-17 16:43
+ */
+public class A {
+
+    private B b;
+
+    public B getB() {
+        return b;
+    }
+
+    public void setB(B b) {
+        this.b = b;
+    }
+}
