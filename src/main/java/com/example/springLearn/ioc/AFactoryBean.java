@@ -1,4 +1,4 @@
-package com.example.springLearn;
+package com.example.springLearn.ioc;
 
 import org.springframework.beans.factory.FactoryBean;
 
