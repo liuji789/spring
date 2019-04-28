@@ -1,5 +1,8 @@
 package com.example.springLearn.aop;
 
+import org.junit.Test;
+import org.springframework.aop.framework.ProxyFactory;
+import org.springframework.aop.support.NameMatchMethodPointcutAdvisor;
 import org.springframework.cglib.proxy.Enhancer;
 
 import java.lang.reflect.Proxy;
@@ -34,4 +37,32 @@ public class Spring {
         requestable1.request();
 
     }
+
+    @Test
+    public void testProxyFactory() throws Exception {
+        RequestableImpl requestable = new RequestableImpl();
+        ProxyFactory weave = new ProxyFactory(requestable);
+
+        NameMatchMethodPointcutAdvisor advisor = new NameMatchMethodPointcutAdvisor();
+        PerfomanceMethodInterceptor advice = new PerfomanceMethodInterceptor();
+        advisor.setMappedName("request");
+        advisor.setAdvice(advice);
+
+        //可以去掉，默认动态代理方式
+        weave.setInterfaces(requestable.getClass().getInterfaces());
+        //weave.setProxyTargetClass(true);
+        weave.addAdvisor(advisor);
+        IRequestable proxy =(IRequestable) weave.getProxy();
+
+        proxy.request();
+        System.out.println("proxy.getClass() = " + proxy.getClass());
+
+        ProxyFactory proxyFactory = new ProxyFactory(new Requestable());
+        proxyFactory.addAdvisor(advisor);
+
+        Requestable weaveProxy = (Requestable) proxyFactory.getProxy();
+        weaveProxy.request();
+        System.out.println("weaveProxy.getClass() = " + weaveProxy.getClass());
+    }
+
 }
