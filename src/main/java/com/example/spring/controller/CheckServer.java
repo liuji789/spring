@@ -1,7 +1,9 @@
 package com.example.spring.controller;
 
+import com.example.spring.bean.AAAA;
 import com.example.spring.service.AService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,26 +34,28 @@ public class CheckServer {
         new Thread() {
             @Override
             public void run() {
-                Integer a = null;
+                AAAA a = null;
+                AAAA a1 = null;
                 try {
-                    a = aService.getA("1");
+                    a = getaService().getA("1");
+                    a1 = aService.getA("1");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                System.out.println("1:a = " + a);
+                System.out.println("1:a = " + a.getA()+";;;"+a1.getA());
             }
         }.start();
 
         new Thread() {
             @Override
             public void run() {
-                Integer a = null;
+                AAAA a = null;
                 try {
-                    a = aService.getA("2");
+                    a = getaService().getA("2");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                System.out.println("2:a = " + a);
+                System.out.println("2:a = " + a.getA());
             }
         }.start();
         Thread.sleep(10000);
@@ -59,6 +63,11 @@ public class CheckServer {
         returnMap.put("code", "1");
         returnMap.put("msg", "11111111");
         return returnMap;
+    }
+
+    @Lookup("aService")
+    public AService getaService(){
+        return null;
     }
 
 }
