@@ -16,7 +16,7 @@ import java.util.Locale;
 @Aspect
 public class PerfomanceAspcet {
 
-    @Pointcut("execution(public void *.request())")
+    @Pointcut("execution(public void *.request()) && @within(com.example.springLearn.aop.JoinpointAnnotation) && @annotation(com.example.springLearn.aop.JoinpointAnnotation1)")
     public void pointcutName() {
 
     }

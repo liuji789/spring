@@ -89,14 +89,14 @@ public class Spring {
     @Test
     public void testAspect() throws Exception {
         AspectJProxyFactory proxyFactory = new AspectJProxyFactory();
-        proxyFactory.setTarget((IRequestable) () -> System.out.println("Aspect  = " + "Aspect"));
+        proxyFactory.setTarget(new WithinRequest());
 
         proxyFactory.addAspect(PerfomanceAspcet.class);
 
         Object proxy = proxyFactory.getProxy();
 
-        ((IRequestable)proxy).request();
-        ((IRequestable)proxy).request();
+        ((IRequestable) proxy).request();
+        ((IRequestable) proxy).request();
     }
 
 }
