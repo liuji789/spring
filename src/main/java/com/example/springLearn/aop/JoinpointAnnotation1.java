@@ -13,4 +13,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 public @interface JoinpointAnnotation1 {
 
+    String annotatiaonParam() default "";
+
+
 }

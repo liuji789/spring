@@ -99,4 +99,16 @@ public class Spring {
         ((IRequestable) proxy).request();
     }
 
+    @Test
+    public void testAspectParam() throws Exception {
+        AspectJProxyFactory proxyFactory = new AspectJProxyFactory();
+        proxyFactory.setTarget(new WithinRequestParam());
+
+        proxyFactory.addAspect(PerfomanceAspcet.class);
+
+        Object proxy = proxyFactory.getProxy();
+
+        ((IRequestableParan) proxy).request("param111",2);
+        ((IRequestableParan) proxy).request("param1",22);
+    }
 }

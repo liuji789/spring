@@ -7,7 +7,7 @@ package com.example.springLearn.aop;
 @JoinpointAnnotation
 public class WithinRequest implements IRequestable {
     @Override
-    @JoinpointAnnotation1
+    @JoinpointAnnotation1(annotatiaonParam = "annotatiaonParam")
     public void request() {
         System.out.println("Aspect...");
     }
