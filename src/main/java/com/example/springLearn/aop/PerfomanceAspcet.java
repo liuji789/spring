@@ -3,8 +3,10 @@ package com.example.springLearn.aop;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.DeclareParents;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.thymeleaf.util.DateUtils;
 
 import java.util.Date;
@@ -15,12 +17,16 @@ import java.util.Locale;
  * @create 2019-05-05 16:26
  */
 @Aspect
-public class PerfomanceAspcet {
+@Order(2)
+public class PerfomanceAspcet implements Ordered {
 
     @Pointcut("execution(public void *.request()) && @within(com.example.springLearn.aop.JoinpointAnnotation) && @annotation(com.example.springLearn.aop.JoinpointAnnotation1)")
     public void pointcutName() {
 
     }
+
+    @DeclareParents(value = "com.example.springLearn.aop.Requestable",defaultImpl = RequestableImpl.class)
+    public IRequestable requestable;
 
     @Pointcut("execution(public void *.request(String,Integer)) && args(param1,param2)")
     public void argesPointCut(String param1,Integer param2){
@@ -59,6 +65,11 @@ public class PerfomanceAspcet {
             System.out.println("around end===>" + DateUtils.format(new Date(), Locale.CHINESE));
         }
 
+    }
+
+    @Override
+    public int getOrder() {
+        return 100;
     }
 
 
