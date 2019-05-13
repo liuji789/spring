@@ -4,8 +4,10 @@ import com.example.spring.bean.AAAA;
 import com.example.spring.service.AService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Lookup;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +16,7 @@ import java.util.Map;
  * @author liuji
  * @create 2019-04-17 16:31
  */
-@RestController
+@Controller
 public class CheckServer {
 
     @Autowired
@@ -26,6 +28,26 @@ public class CheckServer {
         returnMap.put("code", "1");
         returnMap.put("msg", "11111111");
         return returnMap;
+    }
+
+    @RequestMapping("/thymeleaf")
+    public String thymeleaf(@RequestParam(name = "file", required = false) MultipartFile file,String username) {
+        if (file != null) {
+
+            System.out.println("file.getSize() = " + file.getSize());
+        }
+        System.out.println("username = " + username);
+        return "redirect:thymeleafOK";
+    }
+    @RequestMapping("/thymeleafOK")
+    public String toThymeleafOk() {
+        return "thymeleafOK";
+    }
+
+
+    @RequestMapping("/toThymeleaf")
+    public String toThymeleaf() {
+        return "thymeleaf";
     }
 
     @RequestMapping("/test")
@@ -69,5 +91,7 @@ public class CheckServer {
     public AService getaService(){
         return null;
     }
+
+
 
 }
