@@ -26,6 +26,28 @@ public class PerfomanceAspcet {
     public void argesPointCut(String param1,Integer param2){
 
     }
+    @Pointcut("execution(public void *.method1())")
+    public void method1(){
+
+    }
+
+    @Pointcut("execution(public void *.method2())")
+    public void method2(){
+
+    }
+
+    @Around("method1() || method2()")
+    public Object method1And2(ProceedingJoinPoint joinPoint) throws Throwable {
+
+        System.out.println("around start===>" + DateUtils.format(new Date(), Locale.CHINESE));
+        try {
+            return joinPoint.proceed();
+        } finally {
+            System.out.println("around end===>" + DateUtils.format(new Date(), Locale.CHINESE));
+        }
+
+    }
+
 
     @Around("pointcutName()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
