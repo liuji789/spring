@@ -5,6 +5,11 @@ import org.springframework.aop.aspectj.annotation.AspectJProxyFactory;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.aop.support.NameMatchMethodPointcutAdvisor;
 import org.springframework.cglib.proxy.Enhancer;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.lang.reflect.Proxy;
 
@@ -108,8 +113,8 @@ public class Spring {
 
         Object proxy = proxyFactory.getProxy();
 
-        ((IRequestableParan) proxy).request("param111",2);
-        ((IRequestableParan) proxy).request("param1",22);
+        ((IRequestableParan) proxy).request("param111", 2);
+        ((IRequestableParan) proxy).request("param1", 22);
     }
 
     @Test
@@ -126,4 +131,36 @@ public class Spring {
         ((AOPMethod2) proxy).method1();
         ((AOPMethod2) proxy).method2();
     }
+
+    @Test
+    public void testTransactionByCode() throws Exception {
+        DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
+        defaultTransactionDefinition.setTimeout(20);
+        defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
+        DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
+
+        TransactionStatus transaction = dataSourceTransactionManager.getTransaction(defaultTransactionDefinition);
+
+        try {
+            dataSourceTransactionManager.commit(transaction);
+        } catch (Exception e) {
+            System.out.println("事务--->" + e);
+            dataSourceTransactionManager.rollback(transaction);
+        }
+
+        TransactionTemplate transactionTemplate = new TransactionTemplate();
+
+        Object execute = transactionTemplate.execute(transactionStatus -> {
+
+            int a = 1;
+            int b = 2;
+            if (false) {
+                transactionStatus.setRollbackOnly();
+            }
+            return a + b;
+        });
+
+        System.out.println("execute = " + execute);
+    }
+
 }
