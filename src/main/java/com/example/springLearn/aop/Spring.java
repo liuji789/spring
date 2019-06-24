@@ -152,15 +152,29 @@ public class Spring {
 
         Object execute = transactionTemplate.execute(transactionStatus -> {
 
+
             int a = 1;
             int b = 2;
             if (false) {
                 transactionStatus.setRollbackOnly();
             }
+
+            Object savepoint = transactionStatus.createSavepoint();
+            try {
+                int c = 2;
+            }catch (Exception e){
+                transactionStatus.rollbackToSavepoint(savepoint);
+                int c = 3;
+
+            }finally {
+                transactionStatus.releaseSavepoint(savepoint);
+            }
             return a + b;
         });
 
         System.out.println("execute = " + execute);
+
+
     }
 
 }
