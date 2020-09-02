@@ -1,0 +1,20 @@
+@startuml
+
+class Computer{
+
+    -Mouse Mouse
+    -Monitor Monitor
+
+}
+
+class Mouse{
+}
+
+class Monitor{
+
+}
+
+Computer *-- Monitor:组合
+Computer *-- Mouse:组合
+
+@enduml
