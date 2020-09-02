@@ -1,0 +1,20 @@
+@startuml
+
+class Person{
+-IDNo idNo
+-IDCard card;
+}
+
+class IDNo{
+
+}
+
+class IDCard{
+
+}
+
+Person"1" -- "1"IDNo:双向一对一关联关系
+
+Person"1" --> "1"IDCard:单向一对一关联关系
+
+@enduml

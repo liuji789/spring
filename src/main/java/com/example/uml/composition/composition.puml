@@ -2,8 +2,8 @@
 
 class Computer{
 
-    -Mouse Mouse
-    -Monitor Monitor
+    -Mouse Mouse = new Mouse()
+    -Monitor Monitor = new Monitor()
 
 }
 

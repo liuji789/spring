@@ -1,0 +1,14 @@
+@startuml
+abstract  class DaoSupport{
+
++ void save(Object entoty)
++ void delete(Object id)
+}
+
+class PersonServiceBean{
+
+}
+
+PersonServiceBean --> DaoSupport:泛化
+
+@enduml
