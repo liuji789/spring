@@ -1,0 +1,8 @@
+@startuml
+ClassA <-- ClassB:关联 association
+ClassA <.. ClassB:依赖 dependence
+ClassA o-- ClassB:聚集 Aggregation
+ClassA <|-- ClassB:泛化 Extension
+ClassA <|.. ClassB:实现 Implements
+ClassA *-- ClassB:组合 composition
+@enduml

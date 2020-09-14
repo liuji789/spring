@@ -1,0 +1,28 @@
+@startuml
+
+abstract class Pizza{
+    # String name
+    + {abstract} void prepare()
+    + void bake()
+    + void cut()
+    + void box()
+    + void setName(String name)
+
+}
+
+class CheesePizza{
+
+    + void prepare()
+}
+
+class GreekPizza{
+
+    + void prepare()
+}
+
+CheesePizza --|> Pizza:泛化
+GreekPizza --|> Pizza:泛化
+
+
+
+@enduml

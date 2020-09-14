@@ -10,6 +10,6 @@ class PersonServiceBean{
 
 }
 
-PersonServiceBean ..> PersonService:实现
+PersonServiceBean ..|> PersonService:实现
 
 @enduml
