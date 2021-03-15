@@ -7,20 +7,33 @@ import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 从数据库中读取信用数据，套用模型，并把结果进行记录和传输
+ *  -Xlog:gc*
+ *  -XX:+PrintGCDetails
+ *
  */
 
 public class T15_FullGC_Problem01 {
 
+    private static volatile AtomicInteger cardInfo = new AtomicInteger(0);
+
     private static class CardInfo {
         BigDecimal price = new BigDecimal(0.0);
         String name = "张三";
-        int age = 5;
+        int age = 0;
         Date birthdate = new Date();
 
-        public void m() {}
+        public CardInfo() {
+
+            age = cardInfo.addAndGet(1);
+
+        }
+        public void m() {
+            //System.out.println("age = " + age);
+        }
     }
 
     private static ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(50,
