@@ -8,6 +8,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -16,12 +18,19 @@ import java.util.Objects;
 public class TankFrame extends Frame {
 
 
-    private static int WIDTH = 800;
-    private static int HEIGHT = 600;
+    private static int WIDTH = 1024;
+    private static int HEIGHT = 726;
 
 
-    Tank tank = new Tank();
-    Bullet bullet = new Bullet();
+    Tank tank = new Tank(Dir.UP,2,200,600,Group.GOOD,true,false,this);
+
+
+    List<Bullet> bullets = new ArrayList<>();
+
+    List<Tank> tanks = new ArrayList<>();
+
+    Explode explode = new Explode(this,200,200);
+
 
 
     public TankFrame() {
@@ -44,11 +53,35 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        System.out.println("paint.....");
+
+        Color c = g.getColor();
+        g.setColor(Color.WHITE);
+        g.drawString("子弹的数量:" + bullets.size(), 10, 60);
+        g.drawString("敌人的数量:" + tanks.size(), 10, 80);
+        g.setColor(c);
 
         tank.paint(g);
 
-        bullet.paint(g);
+        for (int i = 0; i < tanks.size(); i++) {
+            Tank tank = tanks.get(i);
+            tank.paint(g);
+
+        }
+
+        for (int i = 0; i < bullets.size(); i++) {
+
+            Bullet bullet = bullets.get(i);
+
+            bullet.paint(g);
+        }
+
+        for (int i = 0; i < bullets.size(); i++) {
+            for (int j = 0; j < tanks.size(); j++) {
+                bullets.get(i).collideWith(tanks.get(j));
+            }
+        }
+
+        explode.paint(g);
 
     }
 
@@ -86,7 +119,6 @@ public class TankFrame extends Frame {
 
         @Override
         public void keyPressed(KeyEvent e) {
-            System.out.println("keyPressed.......");
 
             int keyCode = e.getKeyCode();
             switch (keyCode) {
@@ -112,7 +144,6 @@ public class TankFrame extends Frame {
 
         @Override
         public void keyReleased(KeyEvent e) {
-            System.out.println("keyReleased........");
 
             int keyCode = e.getKeyCode();
             switch (keyCode) {
@@ -127,6 +158,9 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_DOWN:
                     dKey = false;
+                    break;
+                case KeyEvent.VK_CONTROL:
+                    tank.fire();
                     break;
                 default:
                     break;
