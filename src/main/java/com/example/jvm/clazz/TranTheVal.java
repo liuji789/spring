@@ -1,27 +1,46 @@
 package com.example.jvm.clazz;
 
-import co.paralleluniverse.fibers.Fiber;
 
+/**
+ * 类文件具有错误的版本 54.0, 应为 52.0
+ */
 public class TranTheVal {
     public static void main(String[] args) throws Exception{
 
 
         long start = System.currentTimeMillis();
         int size = 10000;
-        Fiber<Void>[] fibers = new Fiber[size];
-        for (int i = 0; i < fibers.length; i++) {
-            fibers[i] = new Fiber<>(() -> {
+//        Fiber<Void>[] fibers = new Fiber[size];
+//        for (int i = 0; i < fibers.length; i++) {
+//            fibers[i] = new Fiber<>(() -> {
+//
+//                calc();
+//
+//            });
+//        }
+//        for (int i = 0; i < fibers.length; i++) {
+//            fibers[i].start();
+//        }
+//        for (int i = 0; i < fibers.length; i++) {
+//            fibers[i].join();
+//        }
 
+        Thread[] threads = new Thread[size];
+
+        for (int i = 0; i < threads.length; i++) {
+            threads[i] = new Thread(()->{
                 calc();
-
             });
         }
-        for (int i = 0; i < fibers.length; i++) {
-            fibers[i].start();
+
+        for (int i = 0; i < threads.length; i++) {
+            threads[i].start();
         }
-        for (int i = 0; i < fibers.length; i++) {
-            fibers[i].join();
+
+        for (int i = 0; i < threads.length; i++) {
+            threads[i].join();
         }
+
         long end = System.currentTimeMillis();
         System.out.println(end - start);
     }
