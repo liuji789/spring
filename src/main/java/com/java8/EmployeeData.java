@@ -12,6 +12,8 @@ public class EmployeeData {
         list.add(new Employee(3,"张磊",111,13d));
         list.add(new Employee(4,"马云",1111,12d));
         list.add(new Employee(5,"吴亚军",1111,111d));
+        list.add(new Employee(5,"比尔盖茨",1111,111d));
+        list.add(new Employee(5,"扎克伯格",1111,111d));
 
         return list;
     }

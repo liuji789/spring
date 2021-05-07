@@ -15,6 +15,11 @@ public class Employee {
         this.salary = salary;
     }
 
+    public Employee(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Employee() {
     }
 
