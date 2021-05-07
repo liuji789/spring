@@ -61,7 +61,12 @@ public class StreamTest {
     public void test002(){
         //查询薪水大于100的Employee
         EmployeeData.getEmplees().stream().filter(employee -> employee.getSalary() > 100).forEach(System.out::println);
-
+        System.out.println("--------------------------------------------------------------");
+        EmployeeData.getEmplees().stream().limit(3).forEach(System.out::println);
+        System.out.println("--------------------------------------------------------------");
+        EmployeeData.getEmplees().stream().skip(3).forEach(System.out::println);
+        System.out.println("--------------------------------------------------------------");
+        EmployeeData.getEmplees().stream().distinct().forEach(System.out::println);
     }
 
     /**
