@@ -1,7 +1,5 @@
 package com.java8;
 
-import org.junit.Test;
-
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -11,10 +9,12 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import org.junit.Test;
+
 /**
  * 方法引用
  * 对象::非静态方法
- * 类::惊天方法
+ * 类::静态方法
  * 类::非静态方法
  */
 public class MethodRefTest {
