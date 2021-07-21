@@ -14,6 +14,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * 框架集成-SpringData-集成测试-文档操作
+ *  命名规则：
+ *  findByNameLike
+ *  findByHitsGreaterThan
+ *  findByNameAndAge(name,age)
+ *  findByAgeBetween()
+ *  findByAgeLessThan()
+ *  findByNameIn()
+ *  findByCreateTimeAfter()
+ *
+ *
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
