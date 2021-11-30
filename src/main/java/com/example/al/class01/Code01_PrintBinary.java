@@ -16,6 +16,7 @@ public class Code01_PrintBinary {
 	 *
 	 * ~ 运算符 非
 	 * ~是对位求反 1变0， 0变1
+	 * 0 归属于非负区 -2^31~2^31-1。
 	 *
 	 *
 	 *
@@ -46,7 +47,12 @@ public class Code01_PrintBinary {
 //		int a = Integer.MAX_VALUE;
 //		System.out.println(a);
 
-//		print(-1);
+		print(-1);
+		print(-2);
+		print(0);
+		print(~0);
+		print(1);
+		print(2);
 //		int a = Integer.MIN_VALUE;
 //		print(a);
 
