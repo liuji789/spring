@@ -18,6 +18,8 @@ public class Code01_PrintBinary {
 	 * ~是对位求反 1变0， 0变1
 	 * 0 归属于非负区 -2^31~2^31-1。
 	 *
+	 * 0 取反加1 溢出还是0
+	 *
 	 *  >>  带符号位的右移
 	 *  >>> 不带符号位右移
 	 *
@@ -83,11 +85,13 @@ public class Code01_PrintBinary {
 		print(aa >> 1);
 		print(aa >>> 1);
 //		
-//		int c = Integer.MIN_VALUE;
-//		int d = -c ;
+		int c = Integer.MIN_VALUE;
+		int d = -c ;
 //		
-//		print(c);
-//		print(d);
+		print(c);
+		print(d);
+
+		print(~Integer.MIN_VALUE + 1);
 
 	}
 
