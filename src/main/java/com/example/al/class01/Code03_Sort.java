@@ -31,6 +31,7 @@ public class Code03_Sort {
 		int N = arr.length;
 		// 0 -n-1
 		// 0 -n-2
+		// 0 -n-3
 		for (int end = N - 1; end >= 0; end--) {
 			for (int second = 1; second <= end; second++) {
 				// 第一个 比 第二大 则 交换
@@ -41,6 +42,8 @@ public class Code03_Sort {
 		}
 	}
 
+	// 0 - 1范围有序
+	// 0 - n范围有序 整理牌堆
 	public static void insertSort1(int[] arr) {
 		if (arr == null || arr.length < 2) {
 			return;
