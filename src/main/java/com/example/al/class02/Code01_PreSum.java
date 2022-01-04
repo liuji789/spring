@@ -1,5 +1,8 @@
 package com.example.al.class02;
 
+/**
+ * 前缀和
+ */
 public class Code01_PreSum {
 
 	public static class RangeSum1 {

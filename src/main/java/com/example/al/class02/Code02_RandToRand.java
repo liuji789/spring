@@ -153,7 +153,7 @@ public class Code02_RandToRand {
 		System.out.println((double) count / (double) testTimes);
 		System.out.println((double) 1 - Math.pow((double) 1 - x, 2));
 
-		System.out.println("==========");
+		System.out.println("xToXPower2()==========");
 		count = 0;
 		for (int i = 0; i < testTimes; i++) {
 			if (f2() == 0) {
@@ -162,7 +162,7 @@ public class Code02_RandToRand {
 		}
 		System.out.println((double) count / (double) testTimes);
 
-		System.out.println("==========");
+		System.out.println("f2()==========");
 
 		counts = new int[8];
 		for (int i = 0; i < testTimes; i++) {
@@ -177,6 +177,7 @@ public class Code02_RandToRand {
 
 	// 返回[0,1)的一个小数
 	// 任意的x，x属于[0,1)，[0,x)范围上的数出现概率由原来的x调整成x平方
+	// 两次随机行为
 	public static double xToXPower2() {
 		return Math.min(Math.random(), Math.random());
 	}
