@@ -8,6 +8,10 @@ public class Code03_Sort {
 		arr[i] = tmp;
 	}
 
+	/**
+	 * 选择排序
+	 * @param arr
+	 */
 	public static void selectSort(int[] arr) {
 		if (arr == null || arr.length < 2) {
 			return;
@@ -24,6 +28,10 @@ public class Code03_Sort {
 		}
 	}
 
+	/**
+	 * 冒泡排序
+	 * @param arr
+	 */
 	public static void bubbleSort(int[] arr) {
 		if (arr == null || arr.length < 2) {
 			return;
@@ -42,15 +50,21 @@ public class Code03_Sort {
 		}
 	}
 
-	// 0 - 1范围有序
-	// 0 - n范围有序 整理牌堆
+	/**
+	 * 插入排序
+	 * @param arr
+	 */
 	public static void insertSort1(int[] arr) {
 		if (arr == null || arr.length < 2) {
 			return;
 		}
+		// 0 - 0已经有序
+		// 0 - 1范围有序
+		// 0 - n范围有序 整理牌堆
 		int N = arr.length;
 		for (int end = 1; end < N; end++) {
 			int newNumIndex = end;
+			// 有数 且 大 交换
 			while (newNumIndex - 1 >= 0 && arr[newNumIndex - 1] > arr[newNumIndex]) {
 				swap(arr, newNumIndex - 1, newNumIndex);
 				newNumIndex--;
