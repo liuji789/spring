@@ -173,6 +173,15 @@ public class Code02_RandToRand {
 			System.out.println(i + "这个数，出现了 " + counts[i] + " 次");
 		}
 
+		System.out.println("y()==========");
+		int ync[] = new int[2];
+		for (int i = 0; i < testTimes; i++) {
+			ync[y()]++;
+		}
+		for (int i = 0; i < 2; i++) {
+			System.out.println(i + "这个数，出现了 " + ync[i] + " 次");
+		}
+
 	}
 
 	// 返回[0,1)的一个小数
@@ -225,6 +234,7 @@ public class Code02_RandToRand {
 		int ans = 0;
 		do {
 			ans = x();
+			//第一次和第二次 不相同 则跳出循环
 		} while (ans == x());
 		return ans;
 	}
