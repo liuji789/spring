@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Code02_BSNearLeft {
 
-	// arr有序的，>=num 最左
+	// arr有序的，>=num 最左 直到二分结束 返回记录的最后的值
 	public static int mostLeftNoLessNumIndex(int[] arr, int num) {
 		if (arr == null || arr.length == 0) {
 			return -1;
