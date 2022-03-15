@@ -1,5 +1,6 @@
 package com.java8;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -9,7 +10,11 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import org.bouncycastle.math.Primes;
 import org.junit.Test;
+
+import static java.math.BigInteger.ONE;
+import static java.math.BigInteger.TWO;
 
 /**
  * @author admin
@@ -206,5 +211,19 @@ public class StreamTest {
         //list = [1, 2, 3, 4, 5, 6] 6 个元素
         list.addAll(list1);
         System.out.println("list = " + list);
+    }
+
+    @Test
+    public void test010() throws Exception {
+        primes().map(p -> TWO.pow(p.intValueExact()).subtract(ONE)).filter(mersenne -> mersenne.isProbablePrime(50)).limit(20).forEach(System.out::println);
+    }
+
+    @Test
+    public void test011() throws Exception {
+        primes().map(p -> TWO.pow(p.intValueExact()).subtract(ONE)).filter(mersenne -> mersenne.isProbablePrime(Integer.MAX_VALUE)).limit(15).forEach(mp -> System.out.println(mp.bitLength() + ":" + mp));
+    }
+
+    static  Stream<BigInteger> primes(){
+        return Stream.iterate(TWO,BigInteger::nextProbablePrime);
     }
 }
