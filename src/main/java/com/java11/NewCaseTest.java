@@ -1,61 +1,1 @@
-package com.java11;
-
-import lombok.SneakyThrows;
-import org.junit.Test;
-
-import javax.annotation.Nonnull;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.stream.Stream;
-
-/**
- * @author admin
- *
- * 增加的一些API，httpClient
- * var 类型推断
- *
- */
-public class NewCaseTest {
-    
-    @SneakyThrows
-    @Test
-    public void test001() {
-        String str = "woshidage";
-
-        //判断字符串是空白
-        System.out.println("\"  \".isBlank() = " + "  ".isBlank());
-
-        HttpClient httpClient = HttpClient.newHttpClient();
-
-        HttpRequest request = HttpRequest.newBuilder(URI.create("https://www.baidu.com")).build();
-
-        HttpResponse.BodyHandler<String> bodyHandler = HttpResponse.BodyHandlers.ofString();
-
-        HttpResponse<String> httpResponse = httpClient.send(request, bodyHandler);
-
-        System.out.println(httpResponse);
-
-        String body = httpResponse.body();
-
-        System.out.println("body = " + body);
-
-        var a = 100;
-
-        System.out.println(a);
-
-        var b = "bb";
-
-        System.out.println("b = " + b);
-
-    }
-
-    @Test
-    @SneakyThrows
-    public void test002() throws Exception {
-        String[] arr = { "program", "creek", "is", "a", "java", "site"};
-        Stream<String> stream = Stream.of(arr);
-        stream.forEach((@Nonnull var x) -> System.out.print(x + "\t"));
-    }
-}
+package com.java11;import lombok.SneakyThrows;import org.junit.Test;import javax.annotation.Nonnull;import java.net.URI;import java.net.http.HttpClient;import java.net.http.HttpRequest;import java.net.http.HttpResponse;import java.util.ArrayList;import java.util.Arrays;import java.util.Collections;import java.util.List;import java.util.Optional;import java.util.stream.Stream;/** * @author admin * * 增加的一些API，httpClient * var 类型推断 * */public class NewCaseTest {        @SneakyThrows    @Test    public void test001() {        String str = "woshidage";        //判断字符串是空白        System.out.println("\"  \".isBlank() = " + "  ".isBlank());        HttpClient httpClient = HttpClient.newHttpClient();        HttpRequest request = HttpRequest.newBuilder(URI.create("https://www.baidu.com")).build();        HttpResponse.BodyHandler<String> bodyHandler = HttpResponse.BodyHandlers.ofString();        HttpResponse<String> httpResponse = httpClient.send(request, bodyHandler);        System.out.println(httpResponse);        String body = httpResponse.body();        System.out.println("body = " + body);        var a = 100;        System.out.println(a);        var b = "bb";        System.out.println("b = " + b);    }    @Test    @SneakyThrows    public void test002() throws Exception {        String[] arr = { "program", "creek", "is", "a", "java", "site"};        Stream<String> stream = Stream.of(arr);        stream.forEach((@Nonnull var x) -> System.out.print(x + "\t"));    }    /**     * 测试Stream新增takeWhile方法     * takeWhile  从流中的头开始取元素,直到不满足条件为止     */    @Test    @SneakyThrows    public void testTakeWhile(){        List<Integer> list = Arrays.asList(1, 89, 63, 45, 72, 65, 41, 65, 82, 35, 95, 100);        // 从头开始取所有奇数,直到遇见一个偶数为止        list.stream().takeWhile(e-> e%2==1).forEach(System.out::println);    }    /**     * 测试Stream新增dropWhile方法     * dropWhile  从头开始删除满足条件的数据,直到遇见第一个不满足的位置,并保留剩余元素     */    @Test    @SneakyThrows    public void testDropWhile(){        List<Integer> list = Arrays.asList(2, 86, 63, 45, 72, 65, 41, 65, 82, 35, 95, 100);        // 删除流开头所有的偶数,直到遇见奇数为止        list.stream().dropWhile(e-> e%2==0 ).forEach(System.out::println);    }    /**     * 测试Stream新增ofNullable方法     * ofNullable 允许创建Stream流时,只放入一个null     */    @Test    @SneakyThrows    public void testOfNullable(){        // of方法获取流 ,允许元素中有多个null值        Stream<Integer> stream1 = Stream.of(10, 20, 30, null);        // 如果元素中只有一个null,是不允许的//        Stream<Integer> stream2 = Stream.of(null);        // JAVA9中,如果元素为null,返回的是一个空Stream,如果不为null,返回一个只有一个元素的Stream        Stream<Integer> stream3 = Stream.ofNullable(null);    }    /**     * 测试Stream新增iterate方法     * iterate指定种子数,指定条件和迭代方式来获取流     */    @Test    @SneakyThrows    public void testNewIterate(){        //JAVA8通过 generate方法获取一个Stream        Stream.generate(Math::random).limit(10).forEach(System.out::println);        //JAVA8 通过iterate获取一个Stream        Stream.iterate(0,t-> t+2).limit(10).forEach(System.out::println);        //JAVA9通过重载iterate获取Stream        Stream.iterate(0,t -> t<10,t-> t+1).forEach(System.out::println);        for (int i = 0; i <10; i++) {            System.out.println("i = " + i);        }    }    /**     * Optional类新增Stream方法,可以将一个Optional转换为Stream     */    @Test    @SneakyThrows    public  void testOptionalStream(){        List<Integer> list =new ArrayList<>();        Collections.addAll(list,10,5,45,95,36,85,47);        Optional<List<Integer>> optional= Optional.ofNullable(list);        // 通过optional的Stream方法获取一个Stream        Stream<List<Integer>> stream = optional.stream();        // 以为内部的每个元素也是一个List,通过flatMap方法,将内部的List转换为Stream后再放入一个大Stream        stream.flatMap(x->x.stream()).forEach(System.out::println);    }    @Test    @SneakyThrows    public void test020(){        List<String> list= List.of("TOM","Jerry","Mark","Ben");        System.out.println("list.getClass() = " + list.getClass());        System.out.println(list);    }}

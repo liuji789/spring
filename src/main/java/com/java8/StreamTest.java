@@ -172,7 +172,15 @@ public class StreamTest {
         int reduce = Arrays.stream(ints).reduce(0, Integer::sum);
         System.out.println("reduce = " + reduce);
         Optional<Double> sumSalary = EmployeeData.getEmplees().stream().map(Employee::getSalary).reduce(Double::sum);
+        double sum = EmployeeData.getEmplees().stream().mapToDouble(Employee::getSalary).summaryStatistics().getSum();
+        double sum1 = EmployeeData.getEmplees().stream().mapToDouble(Employee::getSalary).sum();
+        double sum2 = EmployeeData.getEmplees().stream().collect(Collectors.summarizingDouble(Employee::getSalary)).getSum();
+        double sum3 = EmployeeData.getEmplees().stream().collect(Collectors.summingDouble(Employee::getSalary)).doubleValue();
         System.out.println("sumSalary.get() = " + sumSalary.get());
+        System.out.println("sum = " + sum);
+        System.out.println("sum1 = " + sum1);
+        System.out.println("sum2 = " + sum2);
+        System.out.println("sum3 = " + sum3);
     }
 
     /**
