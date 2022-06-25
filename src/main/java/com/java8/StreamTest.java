@@ -4,8 +4,12 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -191,6 +195,19 @@ public class StreamTest {
     public void test007(){
         List<Employee> employeeList = EmployeeData.getEmplees().stream().filter(employee -> employee.getSalary() > 20).collect(Collectors.toList());
         employeeList.forEach(System.out::println);
+    }
+
+    @Test
+    public void test008(){
+        Map<String, List<Employee>> map = EmployeeData.getEmplees().stream().collect(Collectors.groupingBy(Employee::getName));
+        Map<String, Map<Integer, List<Employee>>> mapMap = EmployeeData.getEmplees().stream().collect(Collectors.groupingBy(Employee::getName, Collectors.groupingBy(Employee::getAge)));
+
+
+        Map<String, Employee> employeeMap = EmployeeData.getEmplees().stream().collect(Collectors.toMap(Employee::getName, Function.identity(), (k1, k2) -> k1, ConcurrentHashMap::new));
+
+        System.out.println("map = " + map);
+        System.out.println("mapMap = " + mapMap);
+        System.out.println("employeeMap = " + employeeMap);
     }
 
     public static Stream<Character> stringToStream(String s) {
